@@ -11,4 +11,43 @@
     </ul>
 </nav>
 
+@if(count($categories) > 0)
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        All Categories
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-striped task-table">
+
+            <thead>
+                <th> Category</th>
+                <th>&nbsp;</th>
+            </thead>
+
+            <tbody>
+                @foreach($categories as $category)
+                <tr>
+                    <td>
+                        <div>
+                            {!! $category->name !!}
+                        </div>
+                    </td>
+                    <td>
+                        <a href="">
+                            Edit
+                        </a>
+                    </td>
+                    <td><button class="btn btn-danger">Delete</button></td>
+                </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+@endif
+
 @endsection
