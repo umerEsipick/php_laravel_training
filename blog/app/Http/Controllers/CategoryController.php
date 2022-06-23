@@ -14,4 +14,29 @@ class CategoryController extends Controller
     {
         return view('category.index');
     }
+    
+    public function create()
+    {
+        return view('category.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'=>'required|max:20|min:3'
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect('/')->withInput()->withErrors($validator);
+        }
+
+        $category = new Category;
+        $category->name = $request->name;
+        $category->save();
+
+        Session::flash('category_create','New category is created');
+
+        return redirect('/category/create');
+    }
 }
