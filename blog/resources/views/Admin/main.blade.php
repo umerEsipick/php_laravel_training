@@ -53,8 +53,8 @@
                 </a>
                 <div id="collapsePost" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Create Post</a>
-                        <a class="collapse-item" href="cards.html">View All Posts</a>
+                        <a class="collapse-item" href="/post/create">Create Post</a>
+                        <a class="collapse-item" href="/post">View All Posts</a>
                     </div>
                 </div>
             </li>
