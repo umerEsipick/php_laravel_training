@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Validator;
+use App\Models\Category;
+use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +31,7 @@ class CategoryController extends Controller
 
         if($validator->fails())
         {
-            return redirect('/')->withInput()->withErrors($validator);
+            return redirect('/category/create')->withInput()->withErrors($validator);
         }
 
         $category = new Category;

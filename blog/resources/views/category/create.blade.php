@@ -16,14 +16,17 @@
     <em>{!! session('category_create') !!}</em>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
+@endif
 
 <div>
+    @include('common.errors')
+
     {!! Form::open(array('url'=>'category')) !!}
 
     {!! Form::label('name', 'Name:') !!}
     {!! Form::text('name', null, array('class'=>'form-control')) !!}
 
-    {!! Form::submit('Create Category', array('class'=>'secondary-cart-btn')) !!}
+    {!! Form::submit('Create Category', array('class'=>'btn btn-primary btn-sm')) !!}
 
     {!! Form::close() !!}
 </div>
