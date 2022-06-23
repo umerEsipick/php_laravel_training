@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('category.index')->with('categories', $categories);
+        return view('category.main')->with('categories', $categories);
     }
     
     public function create()
@@ -43,4 +43,11 @@ class CategoryController extends Controller
 
         return redirect('/category/create');
     }
+
+    public function edit($id)
+    {
+        $categories = Category::findorfail($id);
+        return view('category.edit')->with('categories', $categories); 
+    }
+
 }

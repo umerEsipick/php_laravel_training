@@ -35,7 +35,7 @@
                         </div>
                     </td>
                     <td>
-                        <a href="">
+                        <a href="{!! url('category/' . $category->id . '/edit')  !!}">
                             Edit
                         </a>
                     </td>
