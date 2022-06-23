@@ -28,7 +28,7 @@
     {!! Form::file('image', null, array('class'=>'form-control')) !!}
 
     {!! Form::label('short_desc', 'Short Description:') !!}
-    {!! Form::textarea('short_desc', null, array('class'=>'form-control')) !!}
+    {!! Form::text('short_desc', null, array('class'=>'form-control')) !!}
 
     {!! Form::label('description', 'Description:') !!}
     {!! Form::textarea('description', null, array('class'=>'form-control')) !!}
