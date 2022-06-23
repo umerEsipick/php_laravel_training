@@ -6,8 +6,7 @@
 
 <nav class="navbar navbar-inverse">
     <ul class="nav navbar-nav">
-        <li><a href="">View all categories</a></li>
-        <li><a href="category/create">Create new category</a></li>
+        <li><a href="/category">View all categories</a></li>
     </ul>
 </nav>
 
