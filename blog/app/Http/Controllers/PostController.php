@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use Session;
+use File;
 use App\Models\Category as ModelsCategory;
 use App\Models\Post;
 
@@ -12,8 +13,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        // $categories = Category::all();
-        return view('post.main') ;
+        $posts = Post::all();
+        return view('post.main')->with('posts', $posts);
+        
     }
     
     public function create()
@@ -62,38 +64,72 @@ class PostController extends Controller
         return redirect('post');
     }
 
-    // public function edit($id)
-    // {
-    //     $categories = Category::findorfail($id);
-    //     return view('category.edit')->with('categories', $categories); 
-    // }
+    public function edit($id)
+    {
+        $categories = array();
 
-    // public function update(Request $request, $id)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'name'=>'required|max:20|min:3'
-    //     ]);
+        foreach (ModelsCategory::all() as $category) {
+            $categories[$category->id] = $category->name;
+        }
 
-    //     if($validator->fails())
-    //     {
-    //         return redirect('category/' . $id . '/edit')->withInput()->withErrors($validator);
-    //     }
+        $posts = Post::findorfail($id);
+        return view('post.edit')->with('posts', $posts)->with('categories', $categories);
+    }
 
-    //     $category = Category::find($id);
-    //     $category->name = $request->Input('name');
-    //     $category->save();
+    public function update(Request $request,  $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'category_id'=>'required|integer',
+            'title'=>'required|max:20|min:3',
+            'author'=>'required|max:20|min:3',
+            'image'=>'mimes:jpg,jpeg,png,gif',
+            'short_desc'=>'required|max:50|min:10',
+            'description'=>'required|max:1000|min:50 ',
+        ]);
 
-    //     Session::flash('category_update','Category updated');
+        $post = Post::find($id);
 
-    //     return redirect('category');
-    // }
+        if($validator->fails())
+        {
+            return redirect('/post/'.$post->id.'/edit')->withInput()->withErrors($validator);
+        }
 
-    // public function destroy($id)
-    // {
-    //      $categories = Category::find($id);
-    //      $categories->delete();
-    //      Session::flash('category_delete','Category deleted');
-    //      return redirect('category');
-    // }
+        if($request->file('image') != "")
+        {
+            $image = $request->file('image');
+            $upload = 'img/posts/';
+            $filename = time().$image->getClientOriginalName();
+            $path = move_uploaded_file($image->getPathname(), $upload.$filename);
+        }
+
+        $post->category_id = $request->category_id;
+        $post->title = $request->Input('title');
+        $post->author = $request->Input('author');
+        
+        if(isset($filename))
+        {
+            $post->image = $filename;
+        }
+        
+        $post->short_desc = $request->Input('short_desc');
+        $post->description = $request->Input('description');
+        $post->save();
+
+        Session::flash('post_update','Post updated');
+
+        return redirect('post');
+    }
+
+    public function destroy($id)
+    {
+         $posts = Post::find($id);
+
+         $image_path = 'img/posts/'.$posts->image;
+         File::delete($image_path);
+
+         $posts->delete();
+         Session::flash('post_delete','Post deleted');
+         return redirect('post');
+    }
 
 }
