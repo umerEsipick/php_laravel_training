@@ -11,6 +11,27 @@
     </ul>
 </nav>
 
+@if(Session::has('category_create'))
+<div class="alert alert-success">
+    <em>{!! session('category_create') !!}</em>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+@endif
+
+@if(Session::has('category_update'))
+<div class="alert alert-success">
+    <em>{!! session('category_update') !!}</em>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+@endif
+
+@if(Session::has('category_delete'))
+<div class="alert alert-danger">
+    <em>{!! session('category_delete') !!}</em>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+@endif
+
 @if(count($categories) > 0)
 <div class="panel panel-default">
 
@@ -39,7 +60,13 @@
                             Edit
                         </a>
                     </td>
-                    <td><button class="btn btn-danger">Delete</button></td>
+                    <td>
+                        {!! Form::open(array('url'=>'category/' . $category->id, 'method'=>'DELETE')) !!}
+                        {!! csrf_field() !!}
+                        {!! method_field('DELETE') !!}
+                            <button class="btn btn-danger">Delete</button>
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

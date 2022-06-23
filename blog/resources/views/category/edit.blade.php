@@ -21,7 +21,7 @@
 <div>
     @include('common.errors')
 
-    {!! Form::open(array('url'=>'category')) !!}
+    {!! Form::model($categories, array('route' => array('category.update', $categories->id), 'method'=>'PUT')) !!}
 
     {!! Form::label('name', 'Name:') !!}
     {!! Form::text('name', null, array('class'=>'form-control')) !!}

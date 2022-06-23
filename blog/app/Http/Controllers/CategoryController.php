@@ -41,13 +41,41 @@ class CategoryController extends Controller
 
         Session::flash('category_create','New category is created');
 
-        return redirect('/category/create');
+        return redirect('category');
     }
 
     public function edit($id)
     {
         $categories = Category::findorfail($id);
         return view('category.edit')->with('categories', $categories); 
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'=>'required|max:20|min:3'
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect('category/' . $id . '/edit')->withInput()->withErrors($validator);
+        }
+
+        $category = Category::find($id);
+        $category->name = $request->Input('name');
+        $category->save();
+
+        Session::flash('category_update','Category updated');
+
+        return redirect('category');
+    }
+
+    public function destroy($id)
+    {
+         $categories = Category::find($id);
+         $categories->delete();
+         Session::flash('category_delete','Category deleted');
+         return redirect('category');
     }
 
 }
