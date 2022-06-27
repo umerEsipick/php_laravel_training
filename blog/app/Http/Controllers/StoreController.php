@@ -14,7 +14,7 @@ class StoreController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('store.main')->with('posts', Post::orderBy('created_at', 'DESC')->get())->with('categories', $categories);
+        return view('store.main')->with('posts', Post::orderBy('created_at', 'DESC')->paginate(2))->with('categories', $categories);
     }
 
     public function getView($id)
@@ -26,7 +26,7 @@ class StoreController extends Controller
     public function getCategory($id)
     {
         $categories = Category::all();
-        $post = DB::table('posts')->where('category_id','=',$id)->get();
+        $post = DB::table('posts')->where('category_id','=',$id)->paginate(2);
         return view('store.category')->with('posts', $post)->with('categories', $categories);
     }
 
@@ -37,7 +37,7 @@ class StoreController extends Controller
 
         if ($keyword != "")
         {
-            return view('store.search')->with('posts', Post::where('title', 'LIKE', '%'.$keyword.'%')->get())->with('keyword', $keyword)->with('categories', $categories);
+            return view('store.search')->with('posts', Post::where('title', 'LIKE', '%'.$keyword.'%')->paginate(2))->with('keyword', $keyword)->with('categories', $categories);
         }
         else
         {
