@@ -11,11 +11,17 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
     public function index()
     {
         $posts = Post::all();
         return view('post.main')->with('posts', $posts);
-        
     }
     
     public function create()

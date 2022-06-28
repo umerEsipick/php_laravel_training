@@ -44,6 +44,10 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+
+                        @if(Auth::user()->admin == 1)
+                            <a href="{{url('/user')}}">Admin</a>
+                        @endif
                     </x-slot>
                 </x-dropdown>
             </div>

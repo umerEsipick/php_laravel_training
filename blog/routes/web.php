@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,6 @@ Route::get('/store/search', 'App\Http\Controllers\StoreController@getSearch');
 Route::controller('store','StoreController');
 Route::resource('category',CategoryController::class);
 Route::resource('post',PostController::class);
+Route::resource('user',UserController::class);
 
 require __DIR__.'/auth.php';
