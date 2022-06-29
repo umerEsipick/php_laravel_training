@@ -9,7 +9,7 @@
         <div>
             <p>Please click the link below</p>
             
-            <a href="">Click</a>
+            <a href="{{ url('mail/confirm/'.$email) }}">Click</a>
         </div>
 
     </body>

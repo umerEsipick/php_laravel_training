@@ -21,6 +21,24 @@ class MailController extends Controller
             $m->to($user->email, $user->name)->subject('Test mail');
         });
         // FacadesMail::to($user->user())->send(new OrderShipped);
-
     }
+
+    public function getConfirm($email = null)
+    {
+        if(! $email)
+        {
+            return redirect('login');
+        }
+
+        $user = User::whereEmail(base64_decode($email))->first();
+        if(! $user)
+        {
+            return redirect('login');
+        }
+
+        $user->confirmed = 1;
+        $user->save();
+        return redirect('login');
+    }
+
 }

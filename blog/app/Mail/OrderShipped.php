@@ -29,6 +29,7 @@ class OrderShipped extends Mailable
     public function build()
     {
         return $this->from('umerf6455@gmail.com', 'Umer Farooq')
-        ->view('auth.send_mail');
+        ->view('auth.send_mail')
+        ->with('email','umerf6455@gmail.com');
     }
 }
