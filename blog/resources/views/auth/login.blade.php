@@ -6,6 +6,13 @@
             </a>
         </x-slot>
 
+        @if(Session::has('flash_message'))
+        <div class="alert alert-success">
+            <em>{!! session('flash_message') !!}</em>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        @endif
+
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,7 @@ Route::controller('store','StoreController');
 Route::resource('category',CategoryController::class);
 Route::resource('post',PostController::class);
 Route::resource('user',UserController::class);
+Route::get('/mail/confirm/{email}', 'App\Http\Controllers\MailController@getConfirm');
+Route::controller('mail','MailController');
 
 require __DIR__.'/auth.php';
